@@ -117,9 +117,9 @@
             const totalPeriods = Math.floor(elapsedSeconds / 30);
             const upcomingPeriod = totalPeriods + 1;
 
-            // Format for textview1: yyyyMMdd100001xxxx
+            // Format for textview1: yyyyMMdd10005xxxx
             const formattedDate = now.toISOString().split('T')[0].replace(/-/g, '');
-            const periodNumber = "100001" + String(upcomingPeriod).padStart(4, '0');
+            const periodNumber = "10005" + String(upcomingPeriod).padStart(4, '0');
             const textview1Content = formattedDate + periodNumber;
 
             // Format for textview2: mm:ss countdown for 30-second intervals
