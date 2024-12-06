@@ -122,7 +122,7 @@
     <div id="toast"></div>
 
     <!-- Monetag Script -->
-    <script src='//niphaumeenses.net/vignette.min.js' data-zone='8614510' data-sdk='show_8614510'></script>
+    <script src='//niphaumeenses.net/vignette.min.js' data-zone='8614660' data-sdk='show_8614660'></script>
 
     <script>
         let adsWatched = 0;
@@ -140,8 +140,8 @@
         }
 
         function watchAd() {
-            if (typeof show_8614510 === 'function') {
-                show_8614510().then(() => {
+            if (typeof show_8614660 === 'function') {
+                show_8614660().then(() => {
                     adsWatched++;
                     points += pointsPerAd;
                     document.getElementById('ads-watched').innerText = `Watched Ads: ${adsWatched}`;
