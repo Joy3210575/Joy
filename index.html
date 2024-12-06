@@ -80,7 +80,7 @@
 
     <!-- Player Screen -->
     <div class="player-screen" id="playerScreen">
-        <h1>VIP MODS LRO</h1>
+        <h1>HGZY HACKER JOY</h1>
         <div class="premium">
             <h2>TLB VIP MOD</h2>
             <p id="textview1Player">Loading...</p>
@@ -92,7 +92,7 @@
 
     <!-- Winner Screen -->
     <div class="winner-screen" id="winnerScreen">
-        <h1>VIP MODS PRO</h1>
+        <h1>HGZY HACKER JOY</h1>
         <div class="premium">
             <h2>TLB VIP MOD</h2>
             <p id="textview1Winner">Loading...</p>
@@ -110,7 +110,7 @@
         function updateTimers() {
             const now = new Date();
             const startHour = 5;
-            const startMinute = 60;
+            const startMinute = 30;
             const startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), startHour, startMinute, 0);
             const elapsedMillis = now - startTime;
             const elapsedSeconds = Math.max(0, Math.floor(elapsedMillis / 1000));
@@ -122,8 +122,8 @@
             const periodNumber = "100001" + String(upcomingPeriod).padStart(4, '0');
             const textview1Content = formattedDate + periodNumber;
 
-            // Format for textview2: mm:ss countdown for 60-second intervals
-            const remainingSeconds = 60 - (elapsedSeconds % 60 );
+            // Format for textview2: mm:ss countdown for 30-second intervals
+            const remainingSeconds = 30 - (elapsedSeconds % 30 );
             const textview2Content = `00:${String(remainingSeconds).padStart(2, '0')}`;
 
             // Update Player screen
@@ -161,7 +161,7 @@
         function checkPlayerResult() {
             const currentText = document.getElementById("textview1Player").textContent;
             if (currentText !== previousPlayerText) {
-                const result = Math.random() > 0.5 ? "BIG" : "SMALL";
+                const result = Math.random() > 0.5 ? "SMALL" : "BIG";
                 document.getElementById("resultPlayer").textContent = `Result: ${result}`;
                 previousPlayerText = currentText;
             } else {
