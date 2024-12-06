@@ -110,7 +110,7 @@
         function updateTimers() {
             const now = new Date();
             const startHour = 5;
-            const startMinute = 30;
+            const startMinute = 60;
             const startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), startHour, startMinute, 0);
             const elapsedMillis = now - startTime;
             const elapsedSeconds = Math.max(0, Math.floor(elapsedMillis / 1000));
