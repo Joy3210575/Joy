@@ -161,7 +161,7 @@
         function checkPlayerResult() {
             const currentText = document.getElementById("textview1Player").textContent;
             if (currentText !== previousPlayerText) {
-                const result = Math.random() > 0.5 ? "SMALL" : "BIG";
+                const result = Math.random() > 0.5 ? "BIG" : "SMALL";
                 document.getElementById("resultPlayer").textContent = `Result: ${result}`;
                 previousPlayerText = currentText;
             } else {
