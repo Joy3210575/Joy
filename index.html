@@ -70,11 +70,11 @@
 
         <select id="playSpinner">
             <option value="" disabled selected>SELECT PLAY SERVER</option>
-            <option value="big_small">BIG/SMALL</option>
+            <option value="small_big">BIG/SMALL</option>
         </select>
 
         <input type="password" id="paidKey" placeholder="PAID KEY">
-        <button onclick="validateKey()">VALIDATE</button>
+        <button onclick="validateKey()">LOGIN</button>
     </div>
 
     <!-- Player Screen -->
@@ -85,7 +85,7 @@
             <p id="textview1Player">Loading...</p>
             <p id="textview2Player">00:00</p>
         </div>
-        <button onclick="checkPlayerResult()">CHECK RESULT</button>
+        <button onclick="checkPlayerResult()">SIGNAL</button>
         <p id="resultPlayer"></p>
     </div>
 
@@ -164,7 +164,7 @@
                 document.getElementById("resultPlayer").textContent = `Result: ${result}`;
                 previousPlayerText = currentText;
             } else {
-                alert("PLS WAIT FOR NEXT PERIOD");
+                alert("পরের পিরিয়ড এর জন্য ওয়েট কর ভাই");
             }
         }
 
@@ -172,7 +172,7 @@
             const currentText = document.getElementById("textview1Winner").textContent;
             if (currentText !== previousWinnerText) {
             } else {
-                alert("PLS WAIT FOR NEXT PERIOD");
+                alert("পরের পিরিয়ড এর জন্য ওয়েট কর ভাই");
             }
         }
     </script>
