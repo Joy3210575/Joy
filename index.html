@@ -60,7 +60,7 @@
 <body>
     <!-- Main Container -->
     <div class="container active" id="mainContainer">
-        <h1>CREATOR TEAM TLB </h1>
+        <h1>TLB TEAM </h1>
         <button onclick="selectServer()">SELECT SERVER</button>
 
         <select id="serverSpinner">
@@ -71,29 +71,30 @@
         <select id="playSpinner">
             <option value="" disabled selected>SELECT PLAY SERVER</option>
             <option value="big_small">BIG/SMALL</option>
+            <option value="red_green">RED/GREEN</option>
         </select>
 
         <input type="password" id="paidKey" placeholder="PAID KEY">
-        <button onclick="validateKey()">LOGIN</button>
+        <button onclick="validateKey()">VALIDATE</button>
     </div>
 
     <!-- Player Screen -->
     <div class="player-screen" id="playerScreen">
-        <h1>HGZY HACKER JOY</h1>
+        <h1>TLB TEAM</h1>
         <div class="premium">
-            <h2>TLB VIP MOD</h2>
+            <h2>TLB VIP HACK</h2>
             <p id="textview1Player">Loading...</p>
             <p id="textview2Player">00:00</p>
         </div>
-        <button onclick="checkPlayerResult()">SIGNAL</button>
+        <button onclick="checkPlayerResult()">CHECK RESULT</button>
         <p id="resultPlayer"></p>
     </div>
 
     <!-- Winner Screen -->
     <div class="winner-screen" id="winnerScreen">
-        <h1>HGZY HACKER JOY</h1>
+        <h1>TLB TEAM</h1>
         <div class="premium">
-            <h2>TLB VIP MOD</h2>
+            <h2>TLB HACK</h2>
             <p id="textview1Winner">Loading...</p>
             <p id="textview2Winner">00:00</p>
         </div>
@@ -116,13 +117,13 @@
             const totalPeriods = Math.floor(elapsedSeconds / 30);
             const upcomingPeriod = totalPeriods + 1;
 
-            // Format for textview1: yyyyMMdd10005xxxx
+            // Format for textview1: yyyyMMdd100005xxxx
             const formattedDate = now.toISOString().split('T')[0].replace(/-/g, '');
-            const periodNumber = "10005" + String(upcomingPeriod).padStart(4, '0');
+            const periodNumber = "100005" + String(upcomingPeriod).padStart(4, '0');
             const textview1Content = formattedDate + periodNumber;
 
             // Format for textview2: mm:ss countdown for 30-second intervals
-            const remainingSeconds = 30 - (elapsedSeconds % 30 );
+            const remainingSeconds = 30 - (elapsedSeconds % 30);
             const textview2Content = `00:${String(remainingSeconds).padStart(2, '0')}`;
 
             // Update Player screen
@@ -160,19 +161,22 @@
         function checkPlayerResult() {
             const currentText = document.getElementById("textview1Player").textContent;
             if (currentText !== previousPlayerText) {
-                const result = Math.random() > 0.5 ? "TRADE FOR BIG ✅" : "TRADE FOR SMALL ✅";
+                const result = Math.random() > 0.5 ? "BIG" : "SMALL";
                 document.getElementById("resultPlayer").textContent = `Result: ${result}`;
                 previousPlayerText = currentText;
             } else {
-                alert("পরের পিরিয়ড এর জন্য ওয়েট কর ভাই");
+                alert("PLS WAIT FOR NEXT PERIOD");
             }
         }
 
         function checkWinnerResult() {
             const currentText = document.getElementById("textview1Winner").textContent;
             if (currentText !== previousWinnerText) {
+                const result = Math.random() > 0.5 ? "RED 🟥" : "GREEN 🟩";
+                document.getElementById("resultWinner").textContent = `Result: ${result}`;
+                previousWinnerText = currentText;
             } else {
-                alert("পরের পিরিয়ড এর জন্য ওয়েট কর ভাই");
+                alert("PLS WAIT FOR NEXT PERIOD");
             }
         }
     </script>
