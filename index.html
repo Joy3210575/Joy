@@ -1,220 +1,199 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FUCK HGZY WITH JOY</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.1/lottie.min.js"></script>
+    <title>MoneTag Auto Ads</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #e3e3ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .app-container {
+            background-color: #3f3c94;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            width: 350px;
+            color: #fff;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .app-container h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .developer {
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #ddd;
+        }
+
+        .progress-circle {
+            width: 120px;
+            height: 120px;
+            background-color: #524bb3;
+            border-radius: 50%;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .ad-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px 0;
+            background-color: #00aaff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .ad-button:hover {
+            background-color: #008ecc;
+        }
+
+        .toggle-container {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .toggle-container label {
+            cursor: pointer;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 15px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #28a745;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(28px);
+        }
+    </style>
 </head>
+
 <body>
-    <!-- Glowing Login Page -->
-    <div id="loginPage" class="page">
-        <div class="glow-box">
-            <h1>TLB TEAM</h1>
-            <p id="onlineCount">Online Members: 0</p>
-            <input type="text" id="loginUsername" placeholder="Enter Username">
-            <input type="password" id="loginPassword" placeholder="Enter Password">
-            <button onclick="login()">Login</button>
+    <div class="app-container">
+        <h1>MoneTag Auto Ads</h1>
+        <div class="developer">JOY</div>
+        <div class="progress-circle" id="progress">0%</div>
+        <p>Watched Ads: <span id="watchedAds">0</span></p>
+        <p>Earned Points: <span id="earnedPoints">0</span></p>
+        <button class="ad-button" onclick="showAd()">Watch Ad</button>
+        <div class="toggle-container">
+            <label for="autoAdSwitch">Auto Ads:</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="autoAdSwitch" onchange="toggleAutoAds(this)">
+                <span class="slider"></span>
+            </label>
         </div>
     </div>
-    <!-- Registration Page -->
-    <div id="registerPage" class="page hidden">
-        <div class="glow-box">
-            <h1>Register</h1>
-            <input type="text" id="registerName" placeholder="Enter Game Name ">
-            <input type="email" id="registerEmail" placeholder="Enter Game Uid">
-            <input type="text" id="registerMobile" placeholder="Enter Mobile Number">
-            <button onclick="registerMember()">Register</button>
-        </div>
-    </div>
-    <!-- Prediction Page -->
-    <div id="predictionPage" class="page hidden">
-        <div class="panel">
-            <h1>FUCK HGZY WITH JOY</h1>
-            <select id="gameSpinner">
-                <option>HGZY</option>
-            </select>
-            <input type="number" id="predictionBox" placeholder="Enter Period Number" maxlength="3" required>
-            <div id="card" class="card">BIG</div>
-            <button onclick="predict()">RESULT</button>
-            <div id="animationContainer"></div>
-            <p id="winningInfo"></p>
-            <p class="footer">MADE BY JOY | <a href="https://t.me/@BDT_MAIN_SUPPORT_ADMIN" target="_blank">Telegram</a></p>
-        </div>
-    </div>
-    <script src="script.js"></script>
+
+    <script src='//niphaumeenses.net/vignette.min.js' data-zone='8636418' data-sdk='show_8636418'></script>
+    <script>
+        let watchedAds = 0;
+        let earnedPoints = 0;
+        let autoAdsInterval = null;
+
+        // Function to display an ad
+        function showAd() {
+            if (typeof show_8636418 === 'function') {
+                show_8636418().then(() => {
+                    watchedAds++;
+                    earnedPoints += 10; // প্রতিটি অ্যাডে ১০ পয়েন্ট
+                    updateDisplay();
+                }).catch(error => {
+                    console.error('Ad failed to load or display:', error);
+                });
+            } else {
+                console.error('Ad script is not loaded or available.');
+            }
+        }
+
+        // Update the display with current values
+        function updateDisplay() {
+            document.getElementById('watchedAds').innerText = watchedAds;
+            document.getElementById('earnedPoints').innerText = earnedPoints;
+            document.getElementById('progress').innerText = `${watchedAds * 10}%`;
+        }
+
+        // Toggle Auto Ads
+        function toggleAutoAds(toggle) {
+            if (toggle.checked) {
+                startAutoAds();
+            } else {
+                stopAutoAds();
+            }
+        }
+
+        // Start auto ads (15-second interval)
+        function startAutoAds() {
+            if (!autoAdsInterval) {
+                autoAdsInterval = setInterval(showAd, 3000); // ১৫ সেকেন্ড পর পর অ্যাড দেখাবে
+            }
+        }
+
+        // Stop auto ads
+        function stopAutoAds() {
+            clearInterval(autoAdsInterval);
+            autoAdsInterval = null;
+        }
+    </script>
 </body>
-</html><style>/* General Styles */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #121212;
-    color: white;
-}
-.page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-.hidden {
-    display: none;
-}
-/* Glowing Box */
-.glow-box {
-    text-align: center;
-    background: #1e1e1e;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px #ffcc00;
-    animation: glow 1.5s infinite alternate;
-}
-@keyframes glow {
-    from {
-        box-shadow: 0 0 20px #ffcc00;
-    }
-    to {
-        box-shadow: 0 0 30px #ffd700;
-    }
-}
-/* Inputs and Buttons */
-input, select {
-    width: 80%;
-    padding: 10px;
-    margin: 10px;
-    border: none;
-    border-radius: 5px;
-}
-button {
-    width: 80%;
-    padding: 10px;
-    background: #ffcc00;
-    border: none;
-    border-radius: 5px;
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-button:hover {
-    background: #ffd700;
-}
-/* Card Styles */
-.card {
-    width: 150px;
-    height: 200px;
-    margin: 20px auto;
-    background: #ffcc00;
-    color: black;
-    font-size: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform 0.6s, background 0.3s;
-}
-.card.flipped {
-    transform: rotateY(180deg);
-    background: #1e1e1e;
-    color: white;
-}
-/* Footer */
-.footer {
-    margin-top: 20px;
-    font-size: 14px;
-}
-/* Lottie Animation Container */
-#animationContainer {
-    width: 200px;
-    height: 200px;
-    margin: 20px auto;
-}
-#winningInfo {
-    font-size: 18px;
-    margin-top: 20px;
-}
-#onlineCount {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 14px;
-    color: #ffcc00;
-}
-/* Running Text */
-footer, #onlineCount, .footer {
-    animation: moveText 10s linear infinite;
-}
-@keyframes moveText {
-    0% {transform: translateX(100%);}
-    100% {transform: translateX(-100%);}
-}</style><script>let onlineCount = Math.floor(Math.random() * 9000) + 1000;
-let currentWinnerIndex = 0;
-document.getElementById("onlineCount").innerText = "Online Members: " + onlineCount;
-// Random Winners for Prediction Page
-const winners = [
-    { name: "ishant", price: "₹500" },
-    { name: "Blade", price: "₹1000" },
-    { name: "Abhishek", price: "₹2000" },
-    { name: "Yuvraj", price: "₹3000" },
-    { name: "Tanishk", price: "₹4000" }
-];
-setInterval(() => {
-    const winner = winners[Math.floor(Math.random() * winners.length)];
-    document.getElementById("winningInfo").innerText = `${winner.name} won ${winner.price}`;
-}, 1000);
-// Login Function
-function login() {
-    const username = document.getElementById("loginUsername").value;
-    const password = document.getElementById("loginPassword").value;
-    if (username === "JOY" && password === "FUCK HGZY") {
-        document.getElementById("loginPage").classList.add("hidden");
-        document.getElementById("registerPage").classList.remove("hidden");
-    } else {
-        alert("Invalid Username or Password");
-    }
-}
-// Register Function
-function registerMember() {
-    const name = document.getElementById("registerName").value;
-    const email = document.getElementById("registerEmail").value;
-    const mobile = document.getElementById("registerMobile").value;
-    if (name && email && mobile) {
-        document.getElementById("registerPage").classList.add("hidden");
-        document.getElementById("predictionPage").classList.remove("hidden");
-        showRandomWinnerInfo();
-    } else {
-        alert("Please fill all the fields.");
-    }
-}
-// Prediction Function
-function predict() {
-    const card = document.getElementById("card");
-    const outcomes = ["BIG", "SMALL"];
-    const prediction = document.getElementById("predictionBox").value;
-    if (prediction.length === 3) {
-        card.classList.add("flipped");
-        setTimeout(() => {
-            card.innerText = outcomes[Math.floor(Math.random() * outcomes.length)];
-            card.classList.remove("flipped");
-        }, 600);
-    } else {
-        alert("Enter a valid 3-digit number.");
-    }
-}
-// Show Random Winner Info
-function showRandomWinnerInfo() {
-    const name = winners[currentWinnerIndex].name;
-    const amount = winners[currentWinnerIndex].price;
-    document.getElementById("winningInfo").innerText = `${name} won ${amount}`;
-    currentWinnerIndex = (currentWinnerIndex + 1) % winners.length;
-}
-// Lottie Animation for Prediction Page
-lottie.loadAnimation({
-    container: document.getElementById("animationContainer"),
-    renderer: "svg",
-    loop: true,
-    autoplay: true,
-    path: "https://cdn.lottielab.com/l/EVjVWgu82P1YLe.json"
-});</script>
+
+</html>
