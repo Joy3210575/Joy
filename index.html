@@ -1,199 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoneTag Auto Ads</title>
+    <title>Gaming Prediction Display</title>
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #e3e3ff;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e1e2f, #1c1c26);
+            color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
 
-        .app-container {
-            background-color: #3f3c94;
-            padding: 30px;
+        .container {
+            width: 400px;
+            padding: 15px;
             border-radius: 15px;
+            background: linear-gradient(145deg, #242435, #1b1b28);
+            box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.7), -8px -8px 15px rgba(50, 50, 70, 0.5);
             text-align: center;
-            width: 350px;
-            color: #fff;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            border: 3px solid #4e4e66;
         }
 
-        .app-container h1 {
-            font-size: 24px;
-            margin-bottom: 10px;
+        h1 {
+            font-size: 1.8em;
+            color: #f39c12;
+            text-transform: uppercase;
+            margin-bottom: 15px;
         }
 
-        .developer {
-            margin-bottom: 20px;
-            font-size: 14px;
-            color: #ddd;
+        .box {
+            background: linear-gradient(145deg, #2d2d40, #21212e);
+            border: 2px solid #4e4e66;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px 0;
+            box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.5), inset -4px -4px 8px rgba(50, 50, 70, 0.4);
+            color: #f1f1f1;
+            font-size: 1em;
         }
 
-        .progress-circle {
-            width: 120px;
-            height: 120px;
-            background-color: #524bb3;
-            border-radius: 50%;
-            margin: 20px auto;
+        #timer {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #f39c12;
+        }
+
+        .history-box {
+            background: linear-gradient(145deg, #29293d, #1e1e2f);
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #4e4e66;
+            max-height: 120px;
+            overflow-y: auto;
+            box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.5), inset -4px -4px 8px rgba(50, 50, 70, 0.4);
+        }
+
+        .history-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .history-item {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 22px;
+            justify-content: space-between;
+            padding: 6px;
+            margin-bottom: 5px;
+            background: #34344a;
+            border-radius: 8px;
+            color: #f1f1f1;
             font-weight: bold;
         }
 
-        .ad-button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 10px 0;
-            background-color: #00aaff;
-            color: #fff;
+        .button {
+            background: linear-gradient(145deg, #ff9800, #e67e22);
             border: none;
+            color: #fff;
+            font-size: 0.9em;
+            font-weight: bold;
+            padding: 8px 15px;
+            margin-top: 10px;
             border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7), -3px -3px 10px rgba(50, 50, 70, 0.5);
         }
 
-        .ad-button:hover {
-            background-color: #008ecc;
+        .button:hover {
+            transform: scale(1.1);
+            background: linear-gradient(145deg, #e67e22, #ff9800);
         }
 
-        .toggle-container {
+        .result-update {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .telegram-link {
             margin-top: 20px;
-            font-size: 16px;
+            font-size: 1em;
             font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .toggle-container label {
-            cursor: pointer;
-        }
-
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 30px;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: 0.4s;
-            border-radius: 15px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: 0.4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background-color: #28a745;
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(28px);
+            color: #f39c12;
         }
     </style>
 </head>
-
 <body>
-    <div class="app-container">
-        <h1>MoneTag Auto Ads</h1>
-        <div class="developer">JOY</div>
-        <div class="progress-circle" id="progress">0%</div>
-        <p>Watched Ads: <span id="watchedAds">0</span></p>
-        <p>Earned Points: <span id="earnedPoints">0</span></p>
-        <button class="ad-button" onclick="showAd()">Watch Ad</button>
-        <div class="toggle-container">
-            <label for="autoAdSwitch">Auto Ads:</label>
-            <label class="toggle-switch">
-                <input type="checkbox" id="autoAdSwitch" onchange="toggleAutoAds(this)">
-                <span class="slider"></span>
-            </label>
-        </div>
+
+<div class="container">
+    <h1>TLB VIP MOD (1-MIN SERVER : JxA)</h1>
+
+    <div class="box">
+        <div>Period Number</div>
+        <div id="periodNumber">Loading...</div>
     </div>
 
-    <script src='//niphaumeenses.net/vignette.min.js' data-zone='8636418' data-sdk='show_8636418'></script>
-    <script>
-        let watchedAds = 0;
-        let earnedPoints = 0;
-        let autoAdsInterval = null;
+    <div class="box result-update" id="currentResultContainer">
+        <div>Current Result</div>
+        <div id="currentResult">Waiting...</div>
+    </div>
 
-        // Function to display an ad
-        function showAd() {
-            if (typeof show_8636418 === 'function') {
-                show_8636418().then(() => {
-                    watchedAds++;
-                    earnedPoints += 10; // প্রতিটি অ্যাডে ১০ পয়েন্ট
-                    updateDisplay();
-                }).catch(error => {
-                    console.error('Ad failed to load or display:', error);
-                });
+    <div class="box">
+        <div>Timer</div>
+        <div id="timer">00:60</div>
+    </div>
+
+    <div class="history-box">
+        <div>History</div>
+        <ul id="history" class="history-list"></ul>
+    </div>
+
+    <button class="button" onclick="clearHistory()">Clear History</button>
+    <button class="button" onclick="refreshResults()">Refresh Results</button>
+
+    <div class="telegram-link" id="telegramLink"></div>
+</div>
+
+<script>
+    const periodNumberElement = document.getElementById('periodNumber');
+    const timerElement = document.getElementById('timer');
+    const currentResultElement = document.getElementById('currentResult');
+    const currentResultContainer = document.getElementById('currentResultContainer');
+    const historyElement = document.getElementById('history');
+
+    const results = [
+        'SMALL', 'BIG', 'BIG', 'SMALL', 'BIG', 'SMALL', 'BIG', 'SMALL', 
+        'SMALL', 'BIG', 'SMALL', 'BIG', 'SMALL', 'SMALL', 'SMALL', 'SMALL', 
+        'SMALL', 'SMALL', 'BIG', 'BIG', 'BIG', 'SMALL', 'BIG', 'SMALL', 
+        'SMALL', 'BIG', 'BIG', 'SMALL', 'BIG'
+    ];
+
+    let lastDisplayedPeriod = -1;
+    let firstPeriodDisplayed = false;
+    let resultIndex = 0;
+
+    function updatePeriodAndResult() {
+        const now = new Date();
+        const utcYear = now.getUTCFullYear();
+        const utcMonth = String(now.getUTCMonth() + 1).padStart(2, '0');
+        const utcDay = String(now.getUTCDate()).padStart(2, '0');
+
+        const utcHours = now.getUTCHours();
+        const utcMinutes = now.getUTCMinutes();
+        const seconds = now.getUTCSeconds();
+        const remainingSeconds = 60 - seconds;
+
+        const totalMinutes = utcHours * 60 + utcMinutes;
+        const periodNumber = 10001 + totalMinutes;
+        const periodString = `${utcYear}${utcMonth}${utcDay}${periodNumber}`;
+
+        // Update period number display
+        periodNumberElement.textContent = periodString;
+
+        if (periodNumber !== lastDisplayedPeriod) {
+            lastDisplayedPeriod = periodNumber;
+
+            if (firstPeriodDisplayed) {
+                const result = results[resultIndex];
+                currentResultElement.textContent = result;
+                currentResultContainer.classList.add('result-update');
+
+                const historyItem = document.createElement('li');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `<span>${periodString}</span><span>${result}</span>`;
+                historyElement.prepend(historyItem);
+
+                resultIndex = (resultIndex + 1) % results.length;
             } else {
-                console.error('Ad script is not loaded or available.');
+                firstPeriodDisplayed = true;
             }
         }
 
-        // Update the display with current values
-        function updateDisplay() {
-            document.getElementById('watchedAds').innerText = watchedAds;
-            document.getElementById('earnedPoints').innerText = earnedPoints;
-            document.getElementById('progress').innerText = `${watchedAds * 10}%`;
-        }
+        // Update timer in the format "xx:xx"
+        timerElement.textContent = `  ${String(0).padStart(2, '0')}  :  ${remainingSeconds.toString().padStart(2, '0')}`;
+    }
 
-        // Toggle Auto Ads
-        function toggleAutoAds(toggle) {
-            if (toggle.checked) {
-                startAutoAds();
-            } else {
-                stopAutoAds();
-            }
-        }
+    function clearHistory() {
+        historyElement.innerHTML = '';
+    }
 
-        // Start auto ads (15-second interval)
-        function startAutoAds() {
-            if (!autoAdsInterval) {
-                autoAdsInterval = setInterval(showAd, 3000); // ১৫ সেকেন্ড পর পর অ্যাড দেখাবে
-            }
-        }
+    function refreshResults() {
+        resultIndex = 0;
+        clearHistory();
+        firstPeriodDisplayed = false;
+        currentResultElement.textContent = "Waiting...";
+    }
 
-        // Stop auto ads
-        function stopAutoAds() {
-            clearInterval(autoAdsInterval);
-            autoAdsInterval = null;
-        }
-    </script>
+    // Encrypted Telegram Link
+    const encryptedTelegramLink = "https://t.me/bdt_game_official_group65";
+
+    function decryptTelegramLink(base64String) {
+        return atob(base64String);
+    }
+
+    const telegramLinkElement = document.getElementById('telegramLink');
+    const telegramLink = decryptTelegramLink(https://t.me/BDT_MAIN_SUPPORT_ADMIN);
+
+    telegramLinkElement.innerHTML = `<a href="${telegramLink}" target="_blank" style="color: #f39c12; text-decoration: none;">Join our Telegram Channel</a>`;
+
+    setInterval(updatePeriodAndResult, 1000);
+</script>
+
 </body>
-
 </html>
