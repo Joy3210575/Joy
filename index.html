@@ -1,476 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JOY PRIMIUM FUTURE SIGNAL</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Ads By JOYxA</title>
     <style>
-      /* General Styles */
-      body {
-        font-family: "Roboto", sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f7fa;
-        color: #333;
-      }
-
-      h1 {
-        text-align: center;
-        color: #007bff;
-        font-size: 2.4rem;
-        margin-top: 40px;
-        font-weight: 700;
-      }
-
-      .container {
-        width: 90%;
-        max-width: 1200px;
-        margin: 40px auto;
-        padding: 40px;
-        background-color: #ffffff;
-        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
-        border-radius: 12px;
-        display: none; /* Hidden initially */
-      }
-
-      .card {
-        background-color: #ffffff;
-        padding: 25px;
-        margin-top: 20px;
-        border-radius: 12px;
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease-in-out;
-      }
-
-      .card:hover {
-        box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.15);
-      }
-
-      .card select,
-      .card input,
-      .card button {
-        width: 100%; /* Ensures all input boxes take full width */
-        padding: 14px;
-        margin-top: 12px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-size: 1rem;
-        background-color: #f9f9f9;
-        color: #333;
-        box-sizing: border-box; /* Ensures padding and border are included in the width */
-      }
-
-      .card input {
-        max-width: 100%; /* Removes max-width restriction to ensure full width */
-      }
-
-      .card button {
-        background-color: #007bff;
-        color: white;
-        font-weight: 600;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-      }
-
-      .card button:hover {
-        background-color: #0056b3;
-        transform: translateY(-3px);
-      }
-
-      .section-title {
-        font-size: 1.6rem;
-        font-weight: 500;
-        margin-bottom: 10px;
-        color: #333;
-      }
-
-      .signal-list {
-        margin-top: 20px;
-        padding-left: 20px;
-      }
-
-      .signal-list li {
-        margin-bottom: 8px;
-        font-size: 1rem;
-        color: #555;
-      }
-
-      .signal-list li:nth-child(odd) {
-        background-color: #f9f9f9;
-        padding: 8px;
-        border-radius: 6px;
-      }
-
-      .signal-list li:nth-child(even) {
-        background-color: #eef2f7;
-        padding: 8px;
-        border-radius: 6px;
-      }
-
-      .animation-message {
-        display: none;
-        padding: 12px;
-        background-color: #28a745;
-        color: white;
-        border-radius: 8px;
-        font-weight: 600;
-        text-align: center;
-        margin-top: 20px;
-        animation: fadeOut 2s forwards;
-      }
-
-      @keyframes fadeOut {
-        0% {
-          opacity: 1;
-        }
-        80% {
-          opacity: 1;
-        }
-        100% {
-          opacity: 0;
-        }
-      }
-      /* Footer Styles */
-      footer {
-        background-color: #007bff;
-        color: white;
-        text-align: center;
-        padding: 20px;
-        margin-top: 40px;
-        border-top: 1px solid #ccc;
-        position: relative; /* Ensure footer is positioned normally */
-        bottom: 0;
-        width: 100%; /* Ensure the footer spans the width of the page */
-      }
-
-      footer a {
-        color: #fff;
-        text-decoration: none;
-        font-weight: 600;
-      }
-
-      footer a:hover {
-        text-decoration: underline;
-      }
-
-      .footer-text {
-        font-size: 1rem;
-        color: white;
-        font-weight: 400;
-      }
-
-      /* Loader styles */
-      .loader {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 9999;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .loader .spinner {
-        border: 8px solid #f3f3f3;
-        border-top: 8px solid #007bff;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        animation: spin 2s linear infinite;
-      }
-
-      .loader p {
-        margin-top: 15px;
-        color: white;
-        font-size: 1.2rem;
-        font-weight: bold;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-      /* Login Page styles */
-      .login-container {
-        max-width: 400px;
-        margin: 100px auto;
-        padding: 30px;
-        background-color: #ffffff;
-        border-radius: 12px;
-        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* This centers the form content horizontally */
-      }
-
-      .login-container h1 {
-        font-size: 2rem;
-        color: #007bff;
-        text-align: center;
-        margin-bottom: 20px;
-      }
-
-      .login-container input {
-        margin-top: 20px;
-        padding: 14px;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        font-size: 1rem;
-        width: 100%;
-        background-color: #f9f9f9;
-        color: #333;
-        box-sizing: border-box;
-      }
-
-      .login-container button {
-        margin-top: 20px;
-        padding: 14px;
-        background-color: #007bff;
-        color: white;
-        font-weight: 600;
-        border: none;
-        cursor: pointer;
-        border-radius: 8px;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-        width: 100%; /* Makes the button take full width of the container */
-      }
-
-      .login-container button:hover {
-        background-color: #0056b3;
-        transform: translateY(-3px);
-      }
-
-      /* Responsive Design for Mobile and Tablets */
-      @media (max-width: 768px) {
-        .container {
-          width: 95%;
-          padding: 20px;
+        /* Global Styles */
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(145deg, #232526, #414345);
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            text-align: center;
         }
 
-        h1 {
-          font-size: 2rem;
+        /* Main Container */
+        .app-container {
+            background: #1c1c1c;
+            border-radius: 20px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.6);
+            padding: 30px 20px;
+            width: 350px;
         }
 
-        .card {
-          padding: 20px;
-          margin-top: 15px;
+        /* Heading */
+        h2 {
+            margin-bottom: 20px;
+            color: #00ffcc;
+            font-size: 24px;
+            letter-spacing: 1px;
         }
 
-        .card select,
-        .card input,
-        .card button {
-          font-size: 1rem;
+        /* Developer Label */
+        .developer-label {
+            margin-bottom: 30px;
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(145deg, #0d0d0d, #2c2c2c);
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 14px;
         }
 
-        .section-title {
-          font-size: 1.4rem;
-        }
-      }
-
-      /* More Responsive Design for Small Mobile Screens */
-      @media (max-width: 480px) {
-        h1 {
-          font-size: 1.8rem;
+        /* Stats */
+        .stats {
+            margin-top: 20px;
+            font-size: 18px;
         }
 
-        .container {
-          padding: 15px;
+        .stats p {
+            margin: 5px 0;
+            color: #bbb;
         }
 
-        .card input,
-        .card select,
-        .card button {
-          padding: 12px;
+        /* Buttons */
+        .button {
+            display: block;
+            margin: 15px auto;
+            padding: 14px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #fff;
+            background: linear-gradient(145deg, #00ffcc, #006b5c);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .section-title {
-          font-size: 1.3rem;
+        .button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.5);
         }
 
-        .card {
-          padding: 15px;
+        .button:active {
+            transform: scale(0.98);
         }
 
-        /* Reduced shadow and margins for a cleaner look on very small screens */
-        .card {
-          box-shadow: none;
-          margin-top: 10px;
+        /* Toast Notifications */
+        #toast {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 12px 20px;
+            font-size: 14px;
+            border-radius: 10px;
+            animation: fadeInOut 3s ease forwards;
         }
-      }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            20%, 80% { opacity: 1; }
+            100% { opacity: 0; }
+        }
     </style>
-  </head>
-  <body>
-    <!-- Login Page -->
-    <div class="login-container" id="login-page">
-      <h1>Login to JOY PRIMIUM FUTURE SIGNAL</h1>
-      <form id="login-form">
-        <input type="text" id="username" placeholder="Username" required />
-        <input type="password" id="password" placeholder="Password" required />
-        <button type="submit">Login</button>
-      </form>
+</head>
+<body>
+    <div class="app-container">
+        <h2>Auto Ads By JOYxA</h2>
+        <div class="developer-label">Developed By JOYxA</div>
+        
+        <div class="stats">
+            <p id="ads-watched">Watched Ads: 0</p>
+            <p id="points-earned">Earned Points: 0</p>
+        </div>
+
+        <button class="button" onclick="watchAd()">Watch Ad</button>
+        <button class="button" onclick="autoAds()">Auto Show Ads</button>
+        <button class="button" onclick="stopAutoAds()">Stop Auto Ads</button>
     </div>
 
-    <!-- Loader -->
-    <div class="loader" id="loader">
-      <div class="spinner"></div>
-      <p>Generating Signals...</p>
-    </div>
+    <div id="toast"></div>
 
-    <!-- Main Page (Hidden Initially) -->
-    <div class="container" id="main-page">
-      <h1>JOY PRIMIUM FUTURE SIGNAL</h1>
-      <div class="card">
-        <h2 class="section-title">GENERATE JOY PRIMIUM FUTURE SIGNALS</h2>
-        <div>
-          <label for="asset-select">Select Asset</label>
-          <select id="asset-select">
-            <option value="EUR/USD QBT">EUR/USD</option>
-            <option value="EUR/JPY QBT">EUR/JPY</option>
-            <option value="USD/JPY QBT">USD/JPY</option>
-            <option value="EUR/GBP QBT">EUR/GBP</option>
-            <option value="USD/EGP-QBT OTC">USD/EGP-OTC</option>
-            <option value="BRL/USD-QBT OTC">BRL/USD-OTC</option>
-            <option value="USD/TRY-QBT OTC">USD/TRY-OTC</option>
-            <option value="USD/PKR-QBT OTC">USD/PKR-OTC</option>
-            <option value="USD/PHP-QBT OTC">USD/PHP-OTC</option>
-            <option value="USD/INR-QBT OTC">USD/INR-OTC</option>
-            <option value="USD/ARS-QBT OTC">USD/ARS-OTC</option>
-            <option value="USD/MXN-QBT OTC">USD/MXN-OTC</option>
-            <option value="NZD/JPY-QBT OTC">NZD/JPY-OTC</option>
-            <option value="USD/DZD-QBT OTC">USD/DZD-OTC</option>
-            <option value="USD/BDT-QBT OTC">USD/BDT-OTC</option>
-          </select>
-        </div>
-        <div>
-          <label for="signal-count">Number of Signals</label>
-          <input type="number" id="signal-count" value="10" min="1" max="30" />
-        </div>
-        <div>
-          <label for="filter-select">Signal Type</label>
-          <select id="filter-select">
-            <option value="ALL">All</option>
-            <option value="CALL">CALL</option>
-            <option value="PUT">PUT</option>
-          </select>
-        </div>
-        <div>
-          <label>
-            <input type="checkbox" id="backtest-filter" /> Filter Backtested
-            Signals (94% accuracy)
-          </label>
-        </div>
-        <button id="generate-signals">Generate Signals</button>
-      </div>
-
-      <div class="signal-list" id="signal-list"></div>
-      <div class="animation-message">Signals generated successfully!</div>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-      <p class="footer-text">
-        &copy; JOY FUTURE SOFTWARE |
-        <a href="https://t.me/BDT_MAIN_SUPPORT_ADMIN" target="_blank"
-          >Join Our Telegram</a
-        >
-      </p>
-    </footer>
+    <!-- Monetag Script -->
+    <script src='//niphaumeenses.net/vignette.min.js' data-zone='8630964' data-sdk='show_8630964'></script>
+    
 
     <script>
-      document
-        .getElementById("login-form")
-        .addEventListener("submit", function (event) {
-          event.preventDefault();
+        let adsWatched = 0;
+        let points = 0;
+        const pointsPerAd = 1;
+        let autoAdsInterval;
 
-          // Simple login validation (this can be expanded as needed)
-          var username = document.getElementById("username").value;
-          var password = document.getElementById("password").value;
-
-          if (username === "JOYTRADER" && password === "JOYTRADER20") {
-            // Show main page and hide login page
-            document.getElementById("login-page").style.display = "none";
-            document.getElementById("main-page").style.display = "block";
-          } else {
-            alert("Invalid username or password");
-          }
-        });
-
-      document
-        .getElementById("generate-signals")
-        .addEventListener("click", function () {
-          // Show the loader
-          document.getElementById("loader").style.display = "flex";
-
-          // Hide the previous messages and clear the signal list
-          document.querySelector(".animation-message").style.display = "none";
-          document.getElementById("signal-list").innerHTML = "";
-
-          setTimeout(function () {
-            generateSignals();
-            // Hide the loader after signals are generated
-            document.getElementById("loader").style.display = "none";
-            document.querySelector(".animation-message").style.display =
-              "block";
-          }, 10000); // Loader display time is now 10 seconds
-        });
-
-      function generateSignals() {
-        const asset = document.getElementById("asset-select").value;
-        const signalCount = document.getElementById("signal-count").value;
-        const filter = document.getElementById("filter-select").value;
-        const backtestFilter =
-          document.getElementById("backtest-filter").checked;
-
-        let signals = [];
-        for (let i = 0; i < signalCount; i++) {
-          let direction = Math.random() > 0.5 ? "CALL" : "PUT";
-          if (filter !== "ALL" && filter !== direction) {
-            continue;
-          }
-
-          // Simulate backtest accuracy if filter is active
-          if (backtestFilter && Math.random() > 0.95) {
-            continue;
-          }
-
-          let time = new Date();
-          time.setMinutes(time.getMinutes() + (i + 1) * 5);
-
-          // Formatting time in 24-hour format
-          signals.push({
-            time: time.toLocaleString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: false,
-            }),
-            asset,
-            direction,
-          });
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
         }
 
-        displaySignals(signals);
-      }
+        function watchAd() {
+            if (typeof show_8630964 === 'function') {
+                show_8630964().then(() => {
+                    adsWatched++;
+                    points += pointsPerAd;
+                    document.getElementById('ads-watched').innerText = `Watched Ads: ${adsWatched}`;
+                    document.getElementById('points-earned').innerText = `Earned Points: ${points}`;
+                    showToast('Ad watched successfully!');
+                }).catch(() => showToast('Ad failed to load.'));
+            } else {
+                showToast('Ad script not loaded.');
+            }
+        }
 
-      function displaySignals(signals) {
-        const signalList = document.getElementById("signal-list");
-        signals.forEach((signal) => {
-          const listItem = document.createElement("li");
-          listItem.textContent = `${signal.time} - ${signal.asset} - ${signal.direction}`;
-          signalList.appendChild(listItem);
-        });
-      }
+        function autoAds() {
+            autoAdsInterval = setInterval(watchAd, 2000);
+            showToast('Auto Ads Started');
+        }
+
+        function stopAutoAds() {
+            clearInterval(autoAdsInterval);
+            showToast('Auto Ads Stopped');
+        }
     </script>
-  </body>
+</body>
 </html>
