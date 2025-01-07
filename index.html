@@ -3,26 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Trading Auto Prediction Bot</title>
+    <title>Color Trading Auto Prediction</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
             margin: 0;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .prediction {
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 20px;
+            height: 100vh;
+            color: #333;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            border-radius: 8px;
-            font-size: 24px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #222;
+        }
+        .prediction {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 1.4rem;
             font-weight: bold;
         }
         .green {
@@ -37,29 +49,51 @@
             background-color: #fff3cd;
             color: #856404;
         }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #666;
+        }
     </style>
 </head>
 <body>
-    <h1>Color Trading Prediction</h1>
-    <div id="result" class="prediction neutral">
-        Waiting for prediction...
+    <div class="container">
+        <h1>Trading Prediction</h1>
+        <div id="prediction" class="prediction neutral">
+            Waiting for prediction...
+        </div>
+        <button onclick="fetchPrediction()">Refresh</button>
+        <div class="footer">Powered by Telegram Bot</div>
     </div>
+
     <script>
         async function fetchPrediction() {
             try {
-                const response = await fetch('/api/getPrediction');
+                const response = await fetch('/api/getPrediction'); // API endpoint
                 const data = await response.json();
 
-                const resultDiv = document.getElementById('result');
-                resultDiv.textContent = `Prediction: ${data.prediction}`;
-                resultDiv.className = `prediction ${data.color}`;
+                const predictionDiv = document.getElementById('prediction');
+                predictionDiv.textContent = `Prediction: ${data.prediction}`;
+                predictionDiv.className = `prediction ${data.color}`;
             } catch (error) {
                 console.error('Error fetching prediction:', error);
+                alert('Error fetching prediction. Please try again.');
             }
         }
 
-        // Fetch prediction every 10 seconds
-        setInterval(fetchPrediction, 10000);
+        // Automatically fetch prediction on load
         fetchPrediction();
     </script>
 </body>
