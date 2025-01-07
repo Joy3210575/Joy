@@ -1,98 +1,325 @@
-import time
-import webbrowser
-from colorama import Fore, Back, Style, init
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extra Earn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f9f9f9;
+            color: #333;
+        }
+        header {
+            background: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 24px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f4f4f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .section h3 {
+            margin: 0 0 10px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            background: white;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        input {
+            padding: 8px;
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+        }
+        .popup button {
+            background: red;
+            margin-top: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<header>Extra Eran</header>
+<div class="container">
+    <div class="section">
+        <h3>Welcome, <span id="username-display"></span>!</h3>
+        <p>Your Balance: <span id="balance-display">0</span> Points</p>
+    </div>
 
-# Initialize colorama for colored text
-init(autoreset=True)
+    <!-- View Ad Section -->
+    <div class="section">
+        <h3>View Ad and Earn Points</h3>
+        <button onclick="viewAd()">View Ad</button>
+    </div>
 
-def stylish_text(text, color):
-    """Display text one character at a time with a delay."""
-    for char in text:
-        print(color + char, end="", flush=True)
-        time.sleep(0.05)
-    print()  # Move to the next line after printing the text
+    <!-- Daily Bonus Section -->
+    <div class="section">
+        <h3>Daily Bonus</h3>
+        <button onclick="claimDailyBonus()">Claim Bonus</button>
+    </div>
 
-def loading_animation(message, color, duration=5):
-    """Simulate a loading animation."""
-    print(color + message, end="", flush=True)
-    for _ in range(duration):
-        print(color + ".", end="", flush=True)
-        time.sleep(0.5)
-    print()
+    <!-- Withdraw Section -->
+    <div class="section">
+        <h3>Withdraw Points</h3>
+        <button onclick="openWithdrawForm()">Withdraw</button>
+    </div>
 
-def get_period_input():
-    """Validate and return a 3-digit period input."""
-    while True:
-        period = input(Fore.GREEN + "ENTER 3 DIGIT PERIOD NUMBER ➤ ")
-        if period.isdigit() and len(period) == 3:
-            return int(period)
-        else:
-            print(Fore.RED + "Please enter exactly 3 digits.")
+    <!-- Transaction History Section -->
+    <div class="section">
+        <h3>Transaction History <button onclick="toggleTransactionHistory()">View</button></h3>
+        <ul id="transaction-list" style="display: none;">
+            <li>No transactions yet.</li>
+        </ul>
+    </div>
 
-def logic_A(period):
-    """Custom prediction logic A."""
-    return ((period ** 2) + (period ** 3) + (period ** 4)) % 100
+    <!-- Referral System -->
+    <div class="section">
+        <h3>Type Correct Code</h3>
+        <p>Type This Code: <span id="referral-code"></span></p>
+        <input type="text" id="referral-input" placeholder="Enter code">
+        <button onclick="applyReferral()">Apply Code And Earn More Points</button>
+    </div>
 
-def logic_B(period):
-    """Custom prediction logic B."""
-    return ((period ** 5) - (period ** 6) + (period ** 7)) % 100
+    <!-- Leaderboard Section -->
+    <div class="section">
+        <h3>Top 2 Leaderboard</h3>
+        <ul id="leaderboard-list">
+            <li>No data yet.</li>
+        </ul>
+    </div>
+</div>
 
-def logic_C(period):
-    """Custom prediction logic C."""
-    return ((period ** 8) + (period ** 9) - (period ** 10)) % 100
+<!-- Withdrawal Form Popup -->
+<div id="withdraw-popup" class="popup">
+    <div class="popup-content">
+        <h3>Withdraw Points</h3>
+        <input type="number" id="withdraw-amount" placeholder="Enter points to withdraw">
+        <select id="payment-method">
+            <option value="bkash">bKash</option>
+            <!-- Add other payment methods here -->
+        </select>
+        <input type="text" id="bkash-account" placeholder="Enter your bKash account number">
+        <button onclick="processWithdrawal()">Withdraw</button>
+        <button onclick="closeWithdrawForm()">Cancel</button>
+    </div>
+</div>
 
-def combined_logic(period):
-    """Combine results from logic A, B, and C."""
-    A = logic_A(period)
-    B = logic_B(period)
-    C = logic_C(period)
-    return (A + B + C) % 10
+<script>
+    let balance = parseInt(localStorage.getItem('balance') || "0");
+    let transactions = JSON.parse(localStorage.getItem('transactions') || "[]");
+    const username = localStorage.getItem('username') || prompt("Enter your name:");
+    const referralCode = localStorage.getItem('referralCode') || username.slice(0, 5) + Math.floor(Math.random() * 1000);
 
-def advanced_logic(period):
-    """Determine 'Big' or 'Small' based on combined logic."""
-    combined = combined_logic(period)
-    return Fore.RED + ("Big" if combined in [5, 1] else "Small")
+    if (!localStorage.getItem('username')) {
+        localStorage.setItem('username', username);
+        localStorage.setItem('referralCode', referralCode);
+    }
 
-if __name__ == "__main__":
-    # Display welcome message
-    stylish_text("WELCOME TO BN PREDICTION SCRIPT", Fore.GREEN + Style.BRIGHT)
-    print("\n")  # Add one line gap
+    document.getElementById('username-display').textContent = username;
+    document.getElementById('balance-display').textContent = balance;
+    document.getElementById('referral-code').textContent = referralCode;
 
-    # Simulate loading the hack result
-    loading_animation("Loading Hack Result", Fore.YELLOW)
-    time.sleep(1)  # Short delay before next step
+    function updateBalance() {
+        document.getElementById('balance-display').textContent = balance;
+        localStorage.setItem('balance', balance);
+    }
 
-    # Simulate server loading
-    loading_animation("Connecting to AI Server", Fore.CYAN)
-    time.sleep(1)
+    function updateTransactions() {
+        const transactionList = document.getElementById('transaction-list');
+        transactionList.innerHTML = "";
+        if (transactions.length === 0) {
+            transactionList.innerHTML = "<li>No transactions yet.</li>";
+        } else {
+            transactions.forEach((tx) => {
+                const li = document.createElement('li');
+                li.textContent = tx;
+                transactionList.appendChild(li);
+            });
+        }
+        localStorage.setItem('transactions', JSON.stringify(transactions));
+    }
 
-    # Simulate public hack activity
-    loading_animation("Loading Public Hack Activity", Fore.MAGENTA)
-    time.sleep(1)
+    function viewAd() {
+        // Get the current date and the last viewed date
+        const currentDate = new Date().toDateString();
+        const lastViewedDate = localStorage.getItem('lastViewedDate');
+        const adsViewedToday = parseInt(localStorage.getItem('adsViewedToday') || "0");
 
-    # Prompt user to join bot and channel
-    stylish_text("JOIN THIS BN LAST KING HACK TO CONTINUE", Fore.RED)
-    webbrowser.open("https://t.me/BNLASTKINGHACK")
-    time.sleep(10)  # Wait for 10 seconds
+        // Check if a new day has started and reset the ad count
+        if (lastViewedDate !== currentDate) {
+            localStorage.setItem('adsViewedToday', "0"); // Reset ad views for new day
+        }
 
-    stylish_text("JOIN THIS CHANNEL TO CONTINUE", Fore.RED)
-    webbrowser.open("https://t.me/BN_OWNER")
-    time.sleep(10)  # Wait for 10 seconds
+        // Check if the user has already viewed 200 ads today
+        if (adsViewedToday >= 200) {
+            alert("You have already viewed 200 ads today. Please try again tomorrow.");
+            return;
+        }
 
-    while True:  # Allow multiple period inputs
-        print("\n" + Fore.GREEN + Style.BRIGHT + "AI SERVER READY")  # Show server ready message
-        time.sleep(1)
+        // Update the last viewed date
+        localStorage.setItem('lastViewedDate', currentDate);
 
-        period = get_period_input()  # Validate 3-digit period input
-        print("\n" + Fore.YELLOW + "Processing Your Input...")
+        // Open the ad and increment the viewed count
+        window.open("https://www.profitablecpmrate.com/zrxm464q?key=824881d4c550c32a85ab9c70a1be78c1"); // Replace with your ad URL
+        setTimeout(() => {
+            const points = 5;
+            balance += points;
+            transactions.push(`Earned ${points} points from viewing an ad.`);
+            localStorage.setItem('adsViewedToday', adsViewedToday + 1); // Increment ad view count
+            updateBalance();
+            updateTransactions();
+            alert(`+${points} Points Added!`);
+        }, 3000);
+    }
 
-        # Simulate a processing delay
-        loading_animation("Analyzing Data", Fore.BLUE, duration=3)
+    function claimDailyBonus() {
+        if (localStorage.getItem('dailyBonusClaimed')) {
+            alert("You have already claimed your daily bonus today.");
+            return;
+        }
 
-        # Display the prediction result
-        stylish_text("RESULT:", Fore.BLUE)
-        result = advanced_logic(period)
-        print(result)
+        const bonus = 10;
+        balance += bonus;
+        transactions.push(`Claimed daily bonus of ${bonus} points.`);
+        localStorage.setItem('dailyBonusClaimed', true);
+        updateBalance();
+        updateTransactions();
+        alert(`+${bonus} Daily Bonus Claimed!`);
+    }
 
-        print(Fore.LIGHTCYAN_EX + "Thank you for using BN LAST KING AI Server!")
-        print(Fore.GREEN + "-" * 50)  # Add a separator for clarity
+    function openWithdrawForm() {
+        if (balance < 500) {
+            alert("You need at least 500 points to withdraw.");
+            return;
+        }
+        document.getElementById('withdraw-popup').style.display = "flex";
+    }
+
+    function closeWithdrawForm() {
+        document.getElementById('withdraw-popup').style.display = "none";
+    }
+
+    function processWithdrawal() {
+        const amount = parseInt(document.getElementById('withdraw-amount').value);
+        const paymentMethod = document.getElementById('payment-method').value;
+        const bkashAccount = document.getElementById('bkash-account').value;
+
+        if (isNaN(amount) || amount <= 0) {
+            alert("Please enter a valid amount.");
+            return;
+        }
+        if (amount > balance) {
+            alert("Insufficient balance.");
+            return;
+        }
+        if (amount < 500) {
+            alert("You need at least 500 points to withdraw.");
+            return;
+        }
+
+        if (paymentMethod === "bkash" && (!bkashAccount || bkashAccount.trim() === "")) {
+            alert("Please enter a valid bKash account number.");
+            return;
+        }
+
+        balance -= amount;
+        transactions.push(`Withdrew ${amount} points via bKash (Account: ${bkashAccount}).`);
+        updateBalance();
+        updateTransactions();
+        alert(`-${amount} Points Withdrawn!`);
+        closeWithdrawForm();
+    }
+
+    function applyReferral() {
+        const code = document.getElementById('referral-input').value;
+        if (code && code !== referralCode) {
+            alert("Invalid code.");
+        } else if (code === referralCode) {
+            balance += 1;
+            transactions.push(`Code is correct! You earned 1 point.`);
+            updateBalance();
+            updateTransactions();
+            alert("Code applied successfully!");
+        }
+    }
+
+    function loadLeaderboard() {
+        const leaderboardList = document.getElementById('leaderboard-list');
+        leaderboardList.innerHTML = `
+            <li>${username} - ${balance} Points</li>
+            <li>Taohid Islam - 500,000,000 Points</li>
+            <li>Ifat Rana - 150,000 Points</li>
+        `;
+    }
+
+    // Function to toggle the visibility of the transaction history
+    function toggleTransactionHistory() {
+        const transactionList = document.getElementById('transaction-list');
+        if (transactionList.style.display === 'none') {
+            transactionList.style.display = 'block';
+        } else {
+            transactionList.style.display = 'none';
+        }
+    }
+
+    document.getElementById('transaction-list').style.display = 'none';
+
+    // Initial Load
+    updateTransactions();
+    loadLeaderboard();
+</script>
+</body>
+        </html>
