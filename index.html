@@ -3,35 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatGPT Telegram Bot</title>
+    <title>AI Chat Telegram Bot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        #chat-box {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        #messages {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        .message {
+            margin: 5px 0;
+        }
+        .user {
+            text-align: right;
+            color: #333;
+        }
+        .bot {
+            text-align: left;
+            color: #007bff;
+        }
+        #input-box {
+            display: flex;
+        }
+        #user-message {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            margin-left: 10px;
+            padding: 10px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>ChatGPT Telegram Bot</h1>
-    <form id="chatForm">
-        <input type="text" id="userMessage" placeholder="Type your message here" required>
-        <button type="submit">Send</button>
-    </form>
-    <div id="response"></div>
+    <div id="chat-box">
+        <h2>AI Chat Telegram Bot</h2>
+        <div id="messages"></div>
+        <div id="input-box">
+            <input type="text" id="user-message" placeholder="Type your message here" required>
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
 
     <script>
-        document.getElementById('chatForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const message = document.getElementById('userMessage').value;
+        async function sendMessage() {
+            const userMessage = document.getElementById('user-message').value;
+            if (!userMessage) return;
+
+            const messagesDiv = document.getElementById('messages');
+
+            // Add user message to chat
+            const userMsgDiv = document.createElement('div');
+            userMsgDiv.className = 'message user';
+            userMsgDiv.textContent = `You: ${userMessage}`;
+            messagesDiv.appendChild(userMsgDiv);
+
+            // Clear input box
+            document.getElementById('user-message').value = '';
 
             try {
-                const response = await fetch('/sendMessage', {
+                // Send the message to the backend
+                const response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message }),
+                    body: JSON.stringify({ message: userMessage }),
                 });
 
                 const data = await response.json();
-                document.getElementById('response').innerText = data.reply;
+
+                // Display bot response
+                const botMsgDiv = document.createElement('div');
+                botMsgDiv.className = 'message bot';
+                botMsgDiv.textContent = `Bot: ${data.reply}`;
+                messagesDiv.appendChild(botMsgDiv);
+
+                messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll
             } catch (error) {
                 console.error('Error:', error);
-                document.getElementById('response').innerText = 'Error sending message.';
+                alert('Failed to get a response from the bot.');
             }
-        });
+        }
     </script>
 </body>
 </html>
