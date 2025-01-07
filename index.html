@@ -3,113 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chat Telegram Bot</title>
+    <title>Color Trading Prediction Bot</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
             padding: 20px;
+            background-color: #f9f9f9;
         }
-        #chat-box {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        #messages {
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            background: #f9f9f9;
-        }
-        .message {
-            margin: 5px 0;
-        }
-        .user {
-            text-align: right;
+        h1 {
+            text-align: center;
             color: #333;
         }
-        .bot {
-            text-align: left;
-            color: #007bff;
-        }
-        #input-box {
+        .prediction {
             display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 24px;
+            font-weight: bold;
         }
-        #user-message {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+        .green {
+            background-color: #d4edda;
+            color: #155724;
         }
-        button {
-            margin-left: 10px;
-            padding: 10px;
-            background: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        .red {
+            background-color: #f8d7da;
+            color: #721c24;
         }
-        button:hover {
-            background: #0056b3;
+        .neutral {
+            background-color: #fff3cd;
+            color: #856404;
         }
     </style>
 </head>
 <body>
-    <div id="chat-box">
-        <h2>AI Chat Telegram Bot</h2>
-        <div id="messages"></div>
-        <div id="input-box">
-            <input type="text" id="user-message" placeholder="Type your message here" required>
-            <button onclick="sendMessage()">Send</button>
-        </div>
+    <h1>Color Trading Prediction</h1>
+    <div id="result" class="prediction neutral">
+        Waiting for prediction...
     </div>
-
     <script>
-        async function sendMessage() {
-            const userMessage = document.getElementById('user-message').value;
-            if (!userMessage) return;
-
-            const messagesDiv = document.getElementById('messages');
-
-            // Add user message to chat
-            const userMsgDiv = document.createElement('div');
-            userMsgDiv.className = 'message user';
-            userMsgDiv.textContent = `You: ${userMessage}`;
-            messagesDiv.appendChild(userMsgDiv);
-
-            // Clear input box
-            document.getElementById('user-message').value = '';
-
+        async function fetchPrediction() {
             try {
-                // Send the message to the backend
-                const response = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: userMessage }),
-                });
-
+                const response = await fetch('/api/getPrediction'); // Backend endpoint
                 const data = await response.json();
 
-                // Display bot response
-                const botMsgDiv = document.createElement('div');
-                botMsgDiv.className = 'message bot';
-                botMsgDiv.textContent = `Bot: ${data.reply}`;
-                messagesDiv.appendChild(botMsgDiv);
+                const resultDiv = document.getElementById('result');
+                resultDiv.textContent = data.prediction;
 
-                messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll
+                // Update color based on prediction
+                resultDiv.className = `prediction ${data.color}`;
             } catch (error) {
-                console.error('Error:', error);
-                alert('Failed to get a response from the bot.');
+                console.error('Error fetching prediction:', error);
             }
         }
+
+        // Fetch prediction every 10 seconds
+        setInterval(fetchPrediction, 10000);
+        fetchPrediction();
     </script>
 </body>
 </html>
